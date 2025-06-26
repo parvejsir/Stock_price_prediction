@@ -26,6 +26,7 @@ This project is a web-based application that predicts future stock prices using 
 ---
 
 ## 📁 Folder Structure
+```
 
 ├── static/ # Plots & downloads (images, CSV)
 ├── templates/ # HTML template (index.html)
@@ -35,15 +36,17 @@ This project is a web-based application that predicts future stock prices using 
 ├── requirements.txt # All Python dependencies
 ├── Procfile # For deployment on Render
 └── README.md # You're here
+```
 ---
 
-## ⚙️ Setup Instructions
+
 
 ### ✅ Prerequisites
 - Python 3.8+
 - Git
 - pip or conda
-
+  
+---
 ### 📦 Installation
 
 ```bash
@@ -61,8 +64,11 @@ pip install -r requirements.txt
 
 # Run Locally
 python app.py
+```
 
-## 🧠 Prediction Example
+---
+
+### 🧠 Prediction Example
 Input: Any valid stock ticker (e.g., TATAMOTORS.NS, INFY.NS, etc.)
 
 Output:
@@ -75,6 +81,7 @@ Output:
 
 🎯 Confidence range around prediction
 
+---
 ## 📜 License
 This project is for educational purposes only.
 © 2025 Parvej Alam.
