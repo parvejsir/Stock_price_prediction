@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stock Trend Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    .container { max-width: 1200px; margin-top: 50px; }
+    .chart-container { margin-top: 30px; }
+    .table-responsive { margin-top: 20px; }
+    .download-link { margin-top: 20px; }
+    .highlight-box {
+      background-color: #f0f8ff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Stock Trend Prediction</h1>
+
+    <!-- Stock Input Form -->
+    <form method="POST" onsubmit="return validateForm()">
+      <div class="mb-3">
+        <label for="stock" class="form-label">Enter Stock Ticker:</label>
+        <input type="text" class="form-control" id="stock" name="stock" placeholder="e.g., TATAMOTORS.NS or NVDA">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <!-- JS Validation for Empty Field -->
+    <script>
+      function validateForm() {
+        const stock = document.getElementById('stock').value.trim();
+        if (!stock) {
+          alert("Please enter a stock symbol.");
+          return false;
+        }
+        return true;
+      }
+    </script>
+
+    <!-- Optional Popup Error -->
+    {% if popup_error %}
+    <div class="alert alert-warning mt-3" role="alert">
+      {{ popup_error }}
+    </div>
+    {% endif %}
+
+    <!-- Predicted Price Box -->
+    {% if next_predicted_price %}
+    <div class="highlight-box text-center">
+      <h4>Next Expected Closing Price: ₹{{ next_predicted_price }}</h4>
+    </div>
+    {% endif %}
+
+    <!-- Chart 1 -->
+    {% if plot_path_ema_20_50 %}
+    <div class="chart-container">
+      <h3>Closing Price vs Time (20 & 50 Days EMA)</h3>
+      <img src="{{ url_for('static', filename='ema_20_50.png') }}" class="img-fluid" alt="EMA 20 & 50"/>
+    </div>
+    {% endif %}
+
+    <!-- Chart 2 -->
+    {% if plot_path_ema_100_200 %}
+    <div class="chart-container">
+      <h3>Closing Price vs Time (100 & 200 Days EMA)</h3>
+      <img src="{{ url_for('static', filename='ema_100_200.png') }}" class="img-fluid" alt="EMA 100 & 200"/>
+    </div>
+    {% endif %}
+
+    <!-- Prediction Plot -->
+    {% if plot_path_prediction %}
+    <div class="chart-container">
+      <h3>Prediction vs Original Trend</h3>
+      <img src="{{ url_for('static', filename='stock_prediction.png') }}" class="img-fluid" alt="Prediction vs Original"/>
+    </div>
+    {% endif %}
+
+    <!-- Summary Table -->
+    {% if data_desc %}
+    <div class="table-responsive">
+      <h3 class="mt-4">Descriptive Data from Jan 2000 to Latest</h3>
+      {{ data_desc | safe }}
+    </div>
+    {% endif %}
+
+    <!-- Download CSV -->
+    {% if dataset_link %}
+    <div class="download-link">
+      <a href="{{ url_for('download_file', filename=dataset_link.split('/')[-1]) }}" class="btn btn-success" download>
+        Download Dataset (CSV)
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
