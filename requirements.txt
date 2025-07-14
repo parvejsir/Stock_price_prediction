@@ -7,3 +7,5 @@ matplotlib==3.7.1
 scikit-learn==1.2.2
 yfinance==0.2.33
 h5py==3.9.0
+setuptools>=42
+wheel
